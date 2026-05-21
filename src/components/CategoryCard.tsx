@@ -16,6 +16,7 @@ export function CategoryCard({ category }: { category: Category }) {
         src={category.image}
         alt={category.name}
         className="absolute bottom-[-18px] right-[-8px] h-[86%] w-[74%] object-contain transition duration-300 group-hover:scale-105"
+        decoding="async"
         loading="lazy"
       />
       <span className="absolute bottom-4 left-4 grid h-8 w-8 place-items-center rounded-full bg-white text-[#17141f] transition group-hover:translate-x-1">

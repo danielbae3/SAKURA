@@ -7,7 +7,7 @@ export function CheckoutSummary() {
   const total = subtotal + delivery;
 
   return (
-    <aside className="rounded-[28px] border border-[#efe7ef] bg-white p-5 shadow-[0_18px_48px_rgba(23,20,31,0.06)] lg:sticky lg:top-24">
+    <aside className="rounded-[28px] border border-[#efe7ef] bg-white p-5 shadow-[0_10px_28px_rgba(23,20,31,0.04)] lg:sticky lg:top-24">
       <h2 className="text-xl font-black tracking-tight text-[#17141f]">Ваш заказ</h2>
       <div className="mt-5 space-y-4">
         {entries.map(({ item, product }) => (

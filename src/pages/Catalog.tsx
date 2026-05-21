@@ -137,7 +137,7 @@ export function Catalog() {
           </p>
         </div>
         <div className="hidden h-44 w-44 place-items-center rounded-[34px] bg-[#fff0f6] sm:grid">
-          <img src="/assets/pocky-strawberry.png" alt="Pocky" className="h-40 w-40 object-contain" />
+          <img src="/assets/pocky-strawberry.png" alt="Pocky" className="h-40 w-40 object-contain" decoding="async" />
         </div>
       </div>
 

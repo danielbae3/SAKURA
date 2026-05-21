@@ -39,13 +39,14 @@ export function Product() {
           style={{ backgroundColor: `${product.accentColor}22` }}
         >
           <span
-            className="absolute h-64 w-64 rounded-full opacity-35 blur-3xl"
+            className="absolute h-56 w-56 rounded-full opacity-20"
             style={{ backgroundColor: product.accentColor }}
           />
           <img
             src={product.image}
             alt={product.name}
-            className="relative h-[86%] max-h-[460px] w-[86%] object-contain drop-shadow-[0_28px_44px_rgba(23,20,31,0.16)]"
+            className="relative h-[86%] max-h-[460px] w-[86%] object-contain"
+            decoding="async"
           />
         </div>
         <div className="flex flex-col justify-center">

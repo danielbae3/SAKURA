@@ -62,7 +62,9 @@ export function Home() {
             <img
               src="/assets/hero-collage.png"
               alt="Японские сладости Sakura"
-              className="relative z-10 h-full min-h-[360px] w-full object-contain drop-shadow-[0_28px_48px_rgba(23,20,31,0.16)]"
+              className="relative z-10 h-full min-h-[360px] w-full object-contain"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -113,6 +115,8 @@ export function Home() {
             src="/assets/promo-gift.png"
             alt="Подарочный набор японских сладостей"
             className="absolute bottom-[-28px] right-[-26px] h-[88%] w-[64%] object-contain sm:right-5 sm:w-[52%]"
+            decoding="async"
+            loading="lazy"
           />
         </div>
       </section>

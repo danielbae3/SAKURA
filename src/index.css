@@ -104,7 +104,7 @@ a {
   background: #fff0f6;
   padding: 3px;
   color: #17141f;
-  box-shadow: 0 12px 24px rgba(247, 42, 138, 0.12);
+  box-shadow: 0 8px 18px rgba(247, 42, 138, 0.08);
 }
 
 .cart-control-wide {
@@ -178,12 +178,12 @@ a {
 .primary-button {
   background: #f72a8a;
   color: white;
-  box-shadow: 0 16px 28px rgba(247, 42, 138, 0.24);
+  box-shadow: 0 10px 20px rgba(247, 42, 138, 0.18);
 }
 
 .primary-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 34px rgba(247, 42, 138, 0.28);
+  box-shadow: 0 12px 24px rgba(247, 42, 138, 0.2);
 }
 
 .primary-button:active,
@@ -282,14 +282,11 @@ a {
   padding: 22px 18px;
   color: #17141f;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .category-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 34px rgba(23, 20, 31, 0.1);
 }
 
 .product-grid {
@@ -304,17 +301,15 @@ a {
   border-radius: 28px;
   background: white;
   padding: 14px;
-  box-shadow: 0 14px 40px rgba(23, 20, 31, 0.045);
+  box-shadow: 0 8px 22px rgba(23, 20, 31, 0.035);
   transition:
     transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+    border-color 180ms ease;
 }
 
 .product-card:hover {
   transform: translateY(-3px);
   border-color: #f5cde0;
-  box-shadow: 0 22px 52px rgba(23, 20, 31, 0.08);
 }
 
 .product-card-actions {
@@ -349,7 +344,7 @@ a {
   border-radius: 24px;
   background: white;
   padding: 18px;
-  box-shadow: 0 14px 36px rgba(23, 20, 31, 0.04);
+  box-shadow: 0 8px 22px rgba(23, 20, 31, 0.03);
 }
 
 .subscribe-band {
@@ -460,7 +455,7 @@ a {
   border-radius: 28px;
   background: white;
   padding: 20px;
-  box-shadow: 0 16px 44px rgba(23, 20, 31, 0.045);
+  box-shadow: 0 8px 24px rgba(23, 20, 31, 0.032);
 }
 
 .filter-title {
@@ -538,7 +533,7 @@ a {
   border-radius: 28px;
   background: white;
   padding: 24px;
-  box-shadow: 0 16px 44px rgba(23, 20, 31, 0.045);
+  box-shadow: 0 8px 24px rgba(23, 20, 31, 0.032);
 }
 
 .product-detail {
@@ -549,7 +544,7 @@ a {
   border-radius: 36px;
   background: white;
   padding: clamp(14px, 3vw, 28px);
-  box-shadow: 0 18px 58px rgba(23, 20, 31, 0.06);
+  box-shadow: 0 10px 28px rgba(23, 20, 31, 0.04);
 }
 
 .info-pill {
@@ -573,7 +568,7 @@ a {
   border-radius: 28px;
   background: white;
   padding: 14px;
-  box-shadow: 0 16px 44px rgba(23, 20, 31, 0.04);
+  box-shadow: 0 8px 24px rgba(23, 20, 31, 0.032);
 }
 
 .checkout-form {
@@ -581,7 +576,7 @@ a {
   border-radius: 28px;
   background: white;
   padding: clamp(18px, 3vw, 28px);
-  box-shadow: 0 16px 48px rgba(23, 20, 31, 0.05);
+  box-shadow: 0 8px 24px rgba(23, 20, 31, 0.035);
 }
 
 .form-grid {
@@ -663,7 +658,7 @@ a {
     white;
   padding: clamp(34px, 7vw, 80px) 20px;
   text-align: center;
-  box-shadow: 0 18px 58px rgba(23, 20, 31, 0.06);
+  box-shadow: 0 10px 28px rgba(23, 20, 31, 0.04);
 }
 
 .sr-only {
@@ -675,6 +670,30 @@ a {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .category-card:hover,
+  .icon-button:hover,
+  .primary-button:hover,
+  .product-card:hover,
+  .round-link:hover,
+  .social-link:hover {
+    transform: none;
+  }
 }
 
 @media (min-width: 640px) {

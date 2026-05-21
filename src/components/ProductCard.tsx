@@ -16,13 +16,14 @@ export function ProductCard({ product }: { product: Product }) {
       <Link to={`/product/${product.slug}`} className="block">
         <div className="relative grid aspect-[1.08] place-items-center overflow-hidden rounded-[24px] bg-[#faf7fb]">
           <span
-            className="absolute h-32 w-32 rounded-full opacity-25 blur-2xl transition group-hover:scale-125"
+            className="absolute h-28 w-28 rounded-full opacity-20 transition-transform duration-300 group-hover:scale-110"
             style={{ backgroundColor: product.accentColor }}
           />
           <img
             src={product.image}
             alt={product.name}
             className="relative h-[82%] w-[82%] object-contain transition duration-300 group-hover:scale-105"
+            decoding="async"
             loading="lazy"
           />
         </div>
