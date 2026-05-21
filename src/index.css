@@ -317,6 +317,18 @@ a {
   box-shadow: 0 22px 52px rgba(23, 20, 31, 0.08);
 }
 
+.product-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.product-card-actions .cart-control {
+  flex-shrink: 0;
+}
+
 .promo-banner {
   position: relative;
   min-height: 204px;
@@ -481,6 +493,44 @@ a {
 
 .filter-chip:active {
   transform: scale(0.98);
+}
+
+.price-filter-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.price-field {
+  display: grid;
+  gap: 8px;
+}
+
+.price-field span {
+  color: #7b7380;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.price-field input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #efe7ef;
+  border-radius: 16px;
+  background: white;
+  padding: 12px 14px;
+  color: #17141f;
+  font-size: 14px;
+  font-weight: 900;
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.price-field input:focus {
+  border-color: #f72a8a;
+  box-shadow: 0 0 0 4px rgba(247, 42, 138, 0.1);
 }
 
 .info-card {
@@ -674,13 +724,6 @@ a {
   .product-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-}
-
-@media (max-width: 560px) {
-  .primary-button,
-  .secondary-button {
-    width: 100%;
-  }
 
   .product-card-actions {
     align-items: stretch;
@@ -688,6 +731,24 @@ a {
   }
 
   .product-card-actions .cart-control {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .product-card-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .product-card-actions .cart-control {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .primary-button,
+  .secondary-button {
     width: 100%;
   }
 

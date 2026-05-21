@@ -31,7 +31,7 @@ export function ProductCard({ product }: { product: Product }) {
         </h3>
         <p className="mt-1 text-sm font-semibold text-[#7b7380]">{product.weight}</p>
       </Link>
-      <div className="product-card-actions mt-4 flex items-center justify-between gap-3">
+      <div className="product-card-actions mt-4">
         <span className="text-xl font-black tracking-tight text-[#17141f]">
           {formatPrice(product.price)}
         </span>

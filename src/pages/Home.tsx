@@ -71,14 +71,6 @@ export function Home() {
       <section className="section-shell">
         <div className="section-heading">
           <h2>Категории</h2>
-          <div className="hidden gap-2 sm:flex">
-            <Link className="round-link" to="/catalog" aria-label="Назад">
-              <ArrowRight className="rotate-180" size={18} weight="bold" />
-            </Link>
-            <Link className="round-link text-[#f72a8a]" to="/catalog" aria-label="В каталог">
-              <ArrowRight size={18} weight="bold" />
-            </Link>
-          </div>
         </div>
         <div className="category-scroll">
           {categories.map((category) => (
@@ -128,14 +120,6 @@ export function Home() {
       <section className="section-shell">
         <div className="section-heading">
           <h2>Что говорят покупатели</h2>
-          <div className="hidden gap-2 sm:flex">
-            <button className="round-link" type="button" aria-label="Предыдущий отзыв">
-              <ArrowRight className="rotate-180" size={18} weight="bold" />
-            </button>
-            <button className="round-link" type="button" aria-label="Следующий отзыв">
-              <ArrowRight size={18} weight="bold" />
-            </button>
-          </div>
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
           {reviews.map((review) => (

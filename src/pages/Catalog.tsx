@@ -9,6 +9,7 @@ import { formatPrice } from "../utils/format";
 type SortMode = "popular" | "priceAsc" | "priceDesc" | "name";
 type CatalogView = "all" | "new" | "hits" | "gifts";
 
+const minCatalogPrice = Math.min(...products.map((product) => product.price));
 const maxCatalogPrice = Math.max(...products.map((product) => product.price));
 
 const getCatalogView = (searchParams: URLSearchParams): CatalogView => {
@@ -48,6 +49,14 @@ const viewContent: Record<CatalogView, { eyebrow: string; title: string; text: s
   },
 };
 
+const normalizePrice = (value: number) => {
+  if (!Number.isFinite(value)) {
+    return minCatalogPrice;
+  }
+
+  return Math.max(minCatalogPrice, Math.min(maxCatalogPrice, value));
+};
+
 export function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = getCatalogView(searchParams);
@@ -55,7 +64,8 @@ export function Catalog() {
   const [category, setCategory] = useState<CategoryId | "all">(
     getCategory(searchParams, initialView),
   );
-  const [priceLimit, setPriceLimit] = useState(maxCatalogPrice);
+  const [priceFrom, setPriceFrom] = useState(minCatalogPrice);
+  const [priceTo, setPriceTo] = useState(maxCatalogPrice);
   const [sort, setSort] = useState<SortMode>(
     searchParams.get("sort") === "name" ? "name" : "popular",
   );
@@ -74,7 +84,7 @@ export function Catalog() {
         if (view === "gifts") return product.category === "gifts";
         return category === "all" || product.category === category;
       })
-      .filter((product) => product.price <= priceLimit);
+      .filter((product) => product.price >= priceFrom && product.price <= priceTo);
 
     return [...list].sort((a, b) => {
       if (sort === "priceAsc") return a.price - b.price;
@@ -82,7 +92,7 @@ export function Catalog() {
       if (sort === "name") return a.name.localeCompare(b.name, "ru");
       return Number(b.isHit) - Number(a.isHit) || Number(b.isNew) - Number(a.isNew) || a.price - b.price;
     });
-  }, [category, priceLimit, sort, view]);
+  }, [category, priceFrom, priceTo, sort, view]);
 
   const setCategoryFilter = (value: CategoryId | "all") => {
     const next = new URLSearchParams(searchParams);
@@ -108,7 +118,8 @@ export function Catalog() {
   const resetFilters = () => {
     setView("all");
     setCategory("all");
-    setPriceLimit(maxCatalogPrice);
+    setPriceFrom(minCatalogPrice);
+    setPriceTo(maxCatalogPrice);
     setSort("popular");
     setSearchParams({}, { replace: true });
   };
@@ -161,20 +172,34 @@ export function Catalog() {
           </div>
 
           <div className="mt-8">
-            <h2 className="filter-title">Цена до {formatPrice(priceLimit)}</h2>
-            <input
-              className="mt-5 w-full accent-[#f72a8a]"
-              type="range"
-              min="120"
-              max={maxCatalogPrice}
-              step="10"
-              value={priceLimit}
-              onChange={(event) => setPriceLimit(Number(event.target.value))}
-            />
-            <div className="mt-2 flex justify-between text-xs font-bold text-[#9a919e]">
-              <span>120 ₽</span>
-              <span>{formatPrice(maxCatalogPrice)}</span>
+            <h2 className="filter-title">Цена</h2>
+            <div className="price-filter-grid mt-4">
+              <label className="price-field">
+                <span>От</span>
+                <input
+                  type="number"
+                  min={minCatalogPrice}
+                  max={maxCatalogPrice}
+                  step="10"
+                  value={priceFrom}
+                  onChange={(event) => setPriceFrom(normalizePrice(Number(event.target.value)))}
+                />
+              </label>
+              <label className="price-field">
+                <span>До</span>
+                <input
+                  type="number"
+                  min={minCatalogPrice}
+                  max={maxCatalogPrice}
+                  step="10"
+                  value={priceTo}
+                  onChange={(event) => setPriceTo(normalizePrice(Number(event.target.value)))}
+                />
+              </label>
             </div>
+            <p className="mt-3 text-xs font-bold leading-5 text-[#9a919e]">
+              Диапазон каталога: {formatPrice(minCatalogPrice)} - {formatPrice(maxCatalogPrice)}
+            </p>
           </div>
         </aside>
 
@@ -208,7 +233,7 @@ export function Catalog() {
             <div>
               <EmptyState
                 title="Сладости не найдены"
-                text="Попробуйте выбрать другую категорию или увеличить предел цены."
+                text="Попробуйте выбрать другую категорию или расширить диапазон цены."
               />
               <div className="mt-5 flex justify-center">
                 <button className="primary-button w-fit" type="button" onClick={resetFilters}>
