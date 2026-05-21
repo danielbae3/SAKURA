@@ -14,11 +14,7 @@ export function ProductCard({ product }: { product: Product }) {
         </span>
       )}
       <Link to={`/product/${product.slug}`} className="product-card-main">
-        <div className="relative grid aspect-[1.08] place-items-center overflow-hidden rounded-[24px] bg-[#faf7fb]">
-          <span
-            className="absolute h-28 w-28 rounded-full opacity-20 transition-transform duration-300 group-hover:scale-110"
-            style={{ backgroundColor: product.accentColor }}
-          />
+        <div className="relative grid aspect-[1.08] place-items-center overflow-hidden rounded-[24px] bg-white">
           <img
             src={product.image}
             alt={product.name}

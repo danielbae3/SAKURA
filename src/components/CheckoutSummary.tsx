@@ -12,7 +12,7 @@ export function CheckoutSummary() {
       <div className="mt-5 space-y-4">
         {entries.map(({ item, product }) => (
           <div key={product.id} className="flex items-center gap-3">
-            <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-[#faf7fb]">
+            <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white">
               <img src={product.image} alt={product.name} className="h-14 w-14 object-contain" />
             </div>
             <div className="min-w-0 flex-1">

@@ -34,7 +34,7 @@ export function Cart() {
         <section className="space-y-4">
           {entries.map(({ item, product }) => (
             <article className="cart-row" key={product.id}>
-              <Link to={`/product/${product.slug}`} className="grid h-24 w-24 shrink-0 place-items-center rounded-[22px] bg-[#faf7fb] sm:h-28 sm:w-28">
+              <Link to={`/product/${product.slug}`} className="grid h-24 w-24 shrink-0 place-items-center rounded-[22px] bg-white sm:h-28 sm:w-28">
                 <img src={product.image} alt={product.name} className="h-20 w-20 object-contain sm:h-24 sm:w-24" />
               </Link>
               <div className="min-w-0 flex-1">

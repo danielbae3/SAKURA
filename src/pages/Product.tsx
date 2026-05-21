@@ -34,14 +34,7 @@ export function Product() {
         Назад в каталог
       </Link>
       <section className="product-detail">
-        <div
-          className="relative grid min-h-[420px] place-items-center overflow-hidden rounded-[34px]"
-          style={{ backgroundColor: `${product.accentColor}22` }}
-        >
-          <span
-            className="absolute h-56 w-56 rounded-full opacity-20"
-            style={{ backgroundColor: product.accentColor }}
-          />
+        <div className="relative grid min-h-[420px] place-items-center overflow-hidden rounded-[34px] bg-white">
           <img
             src={product.image}
             alt={product.name}
