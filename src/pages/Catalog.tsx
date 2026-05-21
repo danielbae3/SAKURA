@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "../components/EmptyState";
 import { ProductCard } from "../components/ProductCard";
@@ -7,59 +7,122 @@ import type { CategoryId } from "../types";
 import { formatPrice } from "../utils/format";
 
 type SortMode = "popular" | "priceAsc" | "priceDesc" | "name";
+type CatalogView = "all" | "new" | "hits" | "gifts";
 
 const maxCatalogPrice = Math.max(...products.map((product) => product.price));
 
+const getCatalogView = (searchParams: URLSearchParams): CatalogView => {
+  const view = searchParams.get("view");
+  return view === "new" || view === "hits" || view === "gifts" ? view : "all";
+};
+
+const getCategory = (searchParams: URLSearchParams, view: CatalogView): CategoryId | "all" => {
+  const category = searchParams.get("category") as CategoryId | null;
+  if (category && categoriesById.has(category)) {
+    return category;
+  }
+
+  return view === "gifts" ? "gifts" : "all";
+};
+
+const viewContent: Record<CatalogView, { eyebrow: string; title: string; text: string }> = {
+  all: {
+    eyebrow: "Каталог",
+    title: "Выберите сладости",
+    text: "Соберите корзину из моти, матча-шоколада, напитков Ramune и ярких подарочных наборов.",
+  },
+  new: {
+    eyebrow: "Новинки",
+    title: "Свежие вкусы",
+    text: "Новые позиции, которые только появились на полке: моти, напитки и сладости к подарку.",
+  },
+  hits: {
+    eyebrow: "Хиты",
+    title: "Любимые сладости",
+    text: "Самые популярные товары Sakura, которые чаще всего добавляют в корзину.",
+  },
+  gifts: {
+    eyebrow: "Подарки",
+    title: "Наборы и сюрпризы",
+    text: "Готовые сладкие боксы для дня рождения, встречи с друзьями или маленького знака внимания.",
+  },
+};
+
 export function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get("category") as CategoryId | null;
+  const initialView = getCatalogView(searchParams);
+  const [view, setView] = useState<CatalogView>(initialView);
   const [category, setCategory] = useState<CategoryId | "all">(
-    initialCategory && categoriesById.has(initialCategory) ? initialCategory : "all",
+    getCategory(searchParams, initialView),
   );
   const [priceLimit, setPriceLimit] = useState(maxCatalogPrice);
   const [sort, setSort] = useState<SortMode>(
     searchParams.get("sort") === "name" ? "name" : "popular",
   );
 
+  useEffect(() => {
+    const nextView = getCatalogView(searchParams);
+    setView(nextView);
+    setCategory(getCategory(searchParams, nextView));
+  }, [searchParams]);
+
   const filteredProducts = useMemo(() => {
     const list = products
-      .filter((product) => category === "all" || product.category === category)
+      .filter((product) => {
+        if (view === "new") return product.isNew;
+        if (view === "hits") return product.isHit;
+        if (view === "gifts") return product.category === "gifts";
+        return category === "all" || product.category === category;
+      })
       .filter((product) => product.price <= priceLimit);
 
     return [...list].sort((a, b) => {
       if (sort === "priceAsc") return a.price - b.price;
       if (sort === "priceDesc") return b.price - a.price;
       if (sort === "name") return a.name.localeCompare(b.name, "ru");
-      return Number(b.isHit) - Number(a.isHit) || a.price - b.price;
+      return Number(b.isHit) - Number(a.isHit) || Number(b.isNew) - Number(a.isNew) || a.price - b.price;
     });
-  }, [category, priceLimit, sort]);
+  }, [category, priceLimit, sort, view]);
 
   const setCategoryFilter = (value: CategoryId | "all") => {
-    setCategory(value);
     const next = new URLSearchParams(searchParams);
-    if (value === "all") {
-      next.delete("category");
+    next.delete("sort");
+    next.delete("category");
+
+    if (value === "gifts") {
+      next.set("view", "gifts");
+      setView("gifts");
+      setCategory("gifts");
     } else {
-      next.set("category", value);
+      next.delete("view");
+      setView("all");
+      setCategory(value);
+      if (value !== "all") {
+        next.set("category", value);
+      }
     }
+
     setSearchParams(next, { replace: true });
   };
 
   const resetFilters = () => {
+    setView("all");
     setCategory("all");
     setPriceLimit(maxCatalogPrice);
     setSort("popular");
     setSearchParams({}, { replace: true });
   };
 
+  const content = viewContent[view];
+
   return (
     <main className="page-shell">
       <div className="catalog-hero">
         <div>
-          <p className="eyebrow">Каталог</p>
-          <h1 className="page-title">Выберите сладости</h1>
+          <p className="eyebrow">{content.eyebrow}</p>
+          <h1 className="page-title">{content.title}</h1>
           <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-[#5f5866]">
-            Соберите корзину из моти, матча-шоколада, напитков Ramune и ярких подарочных наборов.
+            {content.text}
           </p>
         </div>
         <div className="hidden h-44 w-44 place-items-center rounded-[34px] bg-[#fff0f6] sm:grid">
@@ -68,12 +131,12 @@ export function Catalog() {
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[280px_1fr]">
-        <aside className="filter-panel">
+        <aside className="filter-panel min-w-0">
           <div>
             <h2 className="filter-title">Категории</h2>
             <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:grid lg:overflow-visible lg:pb-0">
               <button
-                className={`filter-chip ${category === "all" ? "filter-chip-active" : ""}`}
+                className={`filter-chip ${view === "all" && category === "all" ? "filter-chip-active" : ""}`}
                 type="button"
                 onClick={() => setCategoryFilter("all")}
               >
@@ -82,7 +145,12 @@ export function Catalog() {
               {categories.map((item) => (
                 <button
                   key={item.id}
-                  className={`filter-chip ${category === item.id ? "filter-chip-active" : ""}`}
+                  className={`filter-chip ${
+                    (view === "gifts" && item.id === "gifts") ||
+                    (view === "all" && category === item.id)
+                      ? "filter-chip-active"
+                      : ""
+                  }`}
                   type="button"
                   onClick={() => setCategoryFilter(item.id)}
                 >
@@ -110,7 +178,7 @@ export function Catalog() {
           </div>
         </aside>
 
-        <section>
+        <section className="min-w-0">
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm font-black text-[#7b7380]">
               Найдено: <span className="text-[#17141f]">{filteredProducts.length}</span>
@@ -122,7 +190,7 @@ export function Catalog() {
                 value={sort}
                 onChange={(event) => setSort(event.target.value as SortMode)}
               >
-                <option value="popular">Сначала хиты</option>
+                <option value="popular">Сначала популярные</option>
                 <option value="priceAsc">Сначала дешевле</option>
                 <option value="priceDesc">Сначала дороже</option>
                 <option value="name">По названию</option>

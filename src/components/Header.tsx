@@ -1,21 +1,49 @@
 import { List, MagnifyingGlass, ShoppingBag, User, X } from "@phosphor-icons/react";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
-const navItems = [
-  { label: "Каталог", to: "/catalog" },
-  { label: "Новинки", to: "/catalog?sort=name" },
-  { label: "Хиты", to: "/catalog?sort=popular" },
-  { label: "Подарки", to: "/catalog?category=gifts" },
-  { label: "Доставка и оплата", to: "/checkout" },
+type CatalogView = "all" | "new" | "hits" | "gifts";
+
+type NavItem = {
+  label: string;
+  to: string;
+  pathname: string;
+  view?: CatalogView;
+};
+
+const navItems: NavItem[] = [
+  { label: "Каталог", to: "/catalog", pathname: "/catalog", view: "all" },
+  { label: "Новинки", to: "/catalog?view=new", pathname: "/catalog", view: "new" },
+  { label: "Хиты", to: "/catalog?view=hits", pathname: "/catalog", view: "hits" },
+  { label: "Подарки", to: "/catalog?view=gifts", pathname: "/catalog", view: "gifts" },
+  { label: "Доставка и оплата", to: "/delivery", pathname: "/delivery" },
 ];
+
+const getCatalogView = (search: string): CatalogView => {
+  const view = new URLSearchParams(search).get("view");
+  return view === "new" || view === "hits" || view === "gifts" ? view : "all";
+};
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { totalCount } = useCart();
+  const location = useLocation();
 
   const closeMenu = () => setIsOpen(false);
+  const currentCatalogView = getCatalogView(location.search);
+
+  const isActive = (item: NavItem) => {
+    if (item.pathname !== location.pathname) {
+      return false;
+    }
+
+    if (item.pathname === "/catalog") {
+      return item.view === currentCatalogView;
+    }
+
+    return true;
+  };
 
   return (
     <header className="sticky top-0 z-30 border-b border-[#efeaf0] bg-white/92 backdrop-blur-xl">
@@ -36,17 +64,15 @@ export function Header() {
 
         <nav className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) => (
-            <NavLink
+            <Link
               key={item.label}
               to={item.to}
-              className={({ isActive }) =>
-                `text-sm font-extrabold transition hover:text-[#f72a8a] ${
-                  isActive ? "text-[#f72a8a]" : "text-[#17141f]"
-                }`
-              }
+              className={`text-sm font-extrabold transition hover:text-[#f72a8a] ${
+                isActive(item) ? "text-[#f72a8a]" : "text-[#17141f]"
+              }`}
             >
               {item.label}
-            </NavLink>
+            </Link>
           ))}
         </nav>
 
@@ -85,18 +111,16 @@ export function Header() {
         <div className="border-t border-[#efeaf0] bg-white px-4 pb-5 lg:hidden">
           <nav className="mx-auto grid max-w-7xl gap-2 pt-3">
             {navItems.map((item) => (
-              <NavLink
+              <Link
                 key={item.label}
                 to={item.to}
                 onClick={closeMenu}
-                className={({ isActive }) =>
-                  `rounded-2xl px-4 py-3 text-sm font-black transition ${
-                    isActive ? "bg-[#fff0f6] text-[#f72a8a]" : "text-[#17141f]"
-                  }`
-                }
+                className={`rounded-2xl px-4 py-3 text-sm font-black transition ${
+                  isActive(item) ? "bg-[#fff0f6] text-[#f72a8a]" : "text-[#17141f]"
+                }`}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             ))}
           </nav>
         </div>

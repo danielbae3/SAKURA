@@ -90,7 +90,7 @@ export function Home() {
       <section className="section-shell">
         <div className="section-heading">
           <h2>Хиты продаж</h2>
-          <Link to="/catalog?sort=popular" className="text-sm font-black text-[#f72a8a]">
+          <Link to="/catalog?view=hits" className="text-sm font-black text-[#f72a8a]">
             Смотреть все
           </Link>
         </div>
@@ -112,7 +112,7 @@ export function Home() {
             <p className="mt-4 max-w-xs text-sm font-semibold leading-6 text-white">
               Яркие наборы японских сладостей на любой вкус и повод.
             </p>
-            <Link to="/catalog?category=gifts" className="secondary-button mt-5 w-fit">
+            <Link to="/catalog?view=gifts" className="secondary-button mt-5 w-fit">
               Смотреть наборы
               <ArrowRight size={19} weight="bold" />
             </Link>

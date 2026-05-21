@@ -58,6 +58,7 @@ export const products: Product[] = [
     image: "/assets/pocky-strawberry.png",
     accentColor: "#f72a8a",
     isHit: true,
+    isNew: false,
   },
   {
     id: "kitkat-matcha",
@@ -71,6 +72,7 @@ export const products: Product[] = [
     image: "/assets/kitkat-matcha.png",
     accentColor: "#20a85a",
     isHit: true,
+    isNew: false,
   },
   {
     id: "mochi-strawberry",
@@ -84,6 +86,7 @@ export const products: Product[] = [
     image: "/assets/mochi-strawberry.png",
     accentColor: "#ff87bd",
     isHit: false,
+    isNew: true,
   },
   {
     id: "hello-kitty-gummies",
@@ -97,6 +100,7 @@ export const products: Product[] = [
     image: "/assets/hello-kitty-gummies.png",
     accentColor: "#f72a8a",
     isHit: true,
+    isNew: false,
   },
   {
     id: "ramune-strawberry",
@@ -110,6 +114,7 @@ export const products: Product[] = [
     image: "/assets/ramune-strawberry.png",
     accentColor: "#32b7ff",
     isHit: true,
+    isNew: true,
   },
   {
     id: "panda-biscuits",
@@ -123,6 +128,7 @@ export const products: Product[] = [
     image: "/assets/panda-biscuits.png",
     accentColor: "#ff8b1a",
     isHit: true,
+    isNew: false,
   },
   {
     id: "matcha-cubes",
@@ -136,6 +142,7 @@ export const products: Product[] = [
     image: "/assets/matcha-cubes.png",
     accentColor: "#b7f300",
     isHit: false,
+    isNew: true,
   },
   {
     id: "melon-soda",
@@ -149,6 +156,7 @@ export const products: Product[] = [
     image: "/assets/melon-soda.png",
     accentColor: "#b7f300",
     isHit: false,
+    isNew: true,
   },
   {
     id: "shrimp-chips",
@@ -162,6 +170,7 @@ export const products: Product[] = [
     image: "/assets/shrimp-chips.png",
     accentColor: "#ff8b1a",
     isHit: false,
+    isNew: false,
   },
   {
     id: "dorayaki-cookie",
@@ -175,6 +184,7 @@ export const products: Product[] = [
     image: "/assets/dorayaki-cookie.png",
     accentColor: "#d89743",
     isHit: false,
+    isNew: false,
   },
   {
     id: "tokyo-gift",
@@ -188,6 +198,7 @@ export const products: Product[] = [
     image: "/assets/tokyo-gift.png",
     accentColor: "#f72a8a",
     isHit: true,
+    isNew: true,
   },
   {
     id: "yuzu-candy",
@@ -201,6 +212,7 @@ export const products: Product[] = [
     image: "/assets/yuzu-candy.png",
     accentColor: "#ffb21f",
     isHit: false,
+    isNew: true,
   },
 ];
 

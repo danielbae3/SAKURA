@@ -5,7 +5,7 @@ import type { Category } from "../types";
 export function CategoryCard({ category }: { category: Category }) {
   return (
     <Link
-      to={`/catalog?category=${category.id}`}
+      to={category.id === "gifts" ? "/catalog?view=gifts" : `/catalog?category=${category.id}`}
       className="category-card group"
       style={{ backgroundColor: category.accentColor }}
     >

@@ -17,6 +17,7 @@ export type Product = {
   image: string;
   accentColor: string;
   isHit: boolean;
+  isNew: boolean;
 };
 
 export type Category = {

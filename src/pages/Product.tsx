@@ -1,14 +1,13 @@
-import { ArrowLeft, ShoppingBag } from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { Link, useParams } from "react-router-dom";
+import { CartControl } from "../components/CartControl";
 import { ProductCard } from "../components/ProductCard";
-import { useCart } from "../context/CartContext";
 import { categoriesById, products, productsBySlug } from "../data/products";
 import { formatPrice } from "../utils/format";
 
 export function Product() {
   const { slug } = useParams();
   const product = slug ? productsBySlug.get(slug) : undefined;
-  const { addItem } = useCart();
 
   if (!product) {
     return (
@@ -59,15 +58,13 @@ export function Product() {
             <span className="info-pill">{product.weight}</span>
             <span className="info-pill">Оригинальный вкус</span>
             {product.isHit && <span className="info-pill bg-[#c8f52a] text-[#17141f]">Хит продаж</span>}
+            {product.isNew && <span className="info-pill bg-[#7bd3ff] text-[#17141f]">Новинка</span>}
           </div>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <span className="text-4xl font-black tracking-tight text-[#17141f]">
               {formatPrice(product.price)}
             </span>
-            <button className="primary-button" type="button" onClick={() => addItem(product.id)}>
-              В корзину
-              <ShoppingBag size={22} weight="bold" />
-            </button>
+            <CartControl productId={product.id} productName={product.name} variant="wide" />
           </div>
         </div>
       </section>

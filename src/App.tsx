@@ -4,6 +4,9 @@ import { Header } from "./components/Header";
 import { Cart } from "./pages/Cart";
 import { Catalog } from "./pages/Catalog";
 import { Checkout } from "./pages/Checkout";
+import { About } from "./pages/About";
+import { Contacts } from "./pages/Contacts";
+import { Delivery } from "./pages/Delivery";
 import { Home } from "./pages/Home";
 import { Product } from "./pages/Product";
 import { Thanks } from "./pages/Thanks";
@@ -18,6 +21,9 @@ export function App() {
         <Route path="/product/:slug" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/delivery" element={<Delivery />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/thanks" element={<Thanks />} />
       </Routes>
       <Footer />
