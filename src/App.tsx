@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { ScrollManager } from "./components/ScrollManager";
 import { Cart } from "./pages/Cart";
 import { Catalog } from "./pages/Catalog";
 import { Checkout } from "./pages/Checkout";
@@ -15,6 +16,7 @@ export function App() {
   return (
     <div className="min-h-[100dvh] bg-[#fffdfd] text-[#17141f]">
       <Header />
+      <ScrollManager />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
