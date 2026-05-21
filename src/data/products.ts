@@ -1,0 +1,209 @@
+import type { Category, Product } from "../types";
+
+export const categories: Category[] = [
+  {
+    id: "cookies",
+    name: "Печенье и бисквиты",
+    shortName: "Печенье",
+    image: "/assets/category-cookies.png",
+    accentColor: "#ffc1dd",
+  },
+  {
+    id: "chocolate",
+    name: "Шоколад и конфеты",
+    shortName: "Шоколад",
+    image: "/assets/category-chocolate.png",
+    accentColor: "#c8f52a",
+  },
+  {
+    id: "mochi",
+    name: "Моти и десерты",
+    shortName: "Моти",
+    image: "/assets/category-mochi.png",
+    accentColor: "#ff8b1a",
+  },
+  {
+    id: "drinks",
+    name: "Напитки",
+    shortName: "Напитки",
+    image: "/assets/category-drinks.png",
+    accentColor: "#7bd3ff",
+  },
+  {
+    id: "snacks",
+    name: "Снеки и чипсы",
+    shortName: "Снеки",
+    image: "/assets/category-snacks.png",
+    accentColor: "#ffc0dc",
+  },
+  {
+    id: "gifts",
+    name: "Наборы",
+    shortName: "Наборы",
+    image: "/assets/category-gifts.png",
+    accentColor: "#d2f42f",
+  },
+];
+
+export const products: Product[] = [
+  {
+    id: "pocky-strawberry",
+    slug: "pocky-strawberry",
+    name: "Pocky Клубника",
+    category: "cookies",
+    price: 199,
+    weight: "45 г",
+    description:
+      "Хрустящие палочки в клубничной глазури с нежным молочным вкусом. Лёгкий сладкий перекус к чаю или матча.",
+    image: "/assets/pocky-strawberry.png",
+    accentColor: "#f72a8a",
+    isHit: true,
+  },
+  {
+    id: "kitkat-matcha",
+    slug: "kitkat-matcha",
+    name: "KitKat Матча",
+    category: "chocolate",
+    price: 199,
+    weight: "41,5 г",
+    description:
+      "Зелёный шоколад с матча и хрустящей вафлей. Один из самых узнаваемых японских вкусов KitKat.",
+    image: "/assets/kitkat-matcha.png",
+    accentColor: "#20a85a",
+    isHit: true,
+  },
+  {
+    id: "mochi-strawberry",
+    slug: "mochi-strawberry",
+    name: "Моти Клубника",
+    category: "mochi",
+    price: 129,
+    weight: "1 шт.",
+    description:
+      "Мягкий рисовый десерт с клубничной начинкой. Нежная текстура и яркая ягодная кислинка.",
+    image: "/assets/mochi-strawberry.png",
+    accentColor: "#ff87bd",
+    isHit: false,
+  },
+  {
+    id: "hello-kitty-gummies",
+    slug: "hello-kitty-gummies",
+    name: "Жевательный мармелад Hello Kitty",
+    category: "chocolate",
+    price: 179,
+    weight: "50 г",
+    description:
+      "Фруктовый мармелад в яркой упаковке Hello Kitty. Удобный формат для маленького подарка.",
+    image: "/assets/hello-kitty-gummies.png",
+    accentColor: "#f72a8a",
+    isHit: true,
+  },
+  {
+    id: "ramune-strawberry",
+    slug: "ramune-strawberry",
+    name: "Рамунэ Клубника",
+    category: "drinks",
+    price: 149,
+    weight: "200 мл",
+    description:
+      "Газированный напиток Ramune с клубничным вкусом и классической японской стеклянной бутылкой.",
+    image: "/assets/ramune-strawberry.png",
+    accentColor: "#32b7ff",
+    isHit: true,
+  },
+  {
+    id: "panda-biscuits",
+    slug: "panda-biscuits",
+    name: "Печенье Panda",
+    category: "cookies",
+    price: 159,
+    weight: "50 г",
+    description:
+      "Мини-бисквиты с кремовой начинкой и весёлой упаковкой. Хорошо подходят в ланч-бокс.",
+    image: "/assets/panda-biscuits.png",
+    accentColor: "#ff8b1a",
+    isHit: true,
+  },
+  {
+    id: "matcha-cubes",
+    slug: "matcha-cubes",
+    name: "Шоколадные кубики Матча",
+    category: "chocolate",
+    price: 229,
+    weight: "60 г",
+    description:
+      "Плиточные кубики с насыщенным вкусом зелёного чая и сливочной текстурой.",
+    image: "/assets/matcha-cubes.png",
+    accentColor: "#b7f300",
+    isHit: false,
+  },
+  {
+    id: "melon-soda",
+    slug: "melon-soda",
+    name: "Рамунэ Дыня",
+    category: "drinks",
+    price: 149,
+    weight: "200 мл",
+    description:
+      "Сладкая японская газировка с ароматом дыни. Подавайте хорошо охлаждённой.",
+    image: "/assets/melon-soda.png",
+    accentColor: "#b7f300",
+    isHit: false,
+  },
+  {
+    id: "shrimp-chips",
+    slug: "shrimp-chips",
+    name: "Снеки Shrimp Sticks",
+    category: "snacks",
+    price: 189,
+    weight: "70 г",
+    description:
+      "Хрустящие солёные палочки со вкусом креветки. Контраст к сладкому заказу.",
+    image: "/assets/shrimp-chips.png",
+    accentColor: "#ff8b1a",
+    isHit: false,
+  },
+  {
+    id: "dorayaki-cookie",
+    slug: "dorayaki-cookie",
+    name: "Дораяки Бисквит",
+    category: "cookies",
+    price: 169,
+    weight: "75 г",
+    description:
+      "Мягкий бисквит в стиле дораяки с нежной сладкой начинкой. Хорош к кофе.",
+    image: "/assets/dorayaki-cookie.png",
+    accentColor: "#d89743",
+    isHit: false,
+  },
+  {
+    id: "tokyo-gift",
+    slug: "tokyo-gift",
+    name: "Подарочный набор Tokyo Box",
+    category: "gifts",
+    price: 990,
+    weight: "8 позиций",
+    description:
+      "Яркий набор японских сладостей для подарка: шоколад, моти, напиток и несколько снеков.",
+    image: "/assets/tokyo-gift.png",
+    accentColor: "#f72a8a",
+    isHit: true,
+  },
+  {
+    id: "yuzu-candy",
+    slug: "yuzu-candy",
+    name: "Леденцы Юдзу",
+    category: "chocolate",
+    price: 139,
+    weight: "55 г",
+    description:
+      "Карамель с цитрусовым вкусом юдзу. Небольшая позиция, которую удобно добавить к заказу.",
+    image: "/assets/yuzu-candy.png",
+    accentColor: "#ffb21f",
+    isHit: false,
+  },
+];
+
+export const productsById = new Map(products.map((product) => [product.id, product]));
+export const productsBySlug = new Map(products.map((product) => [product.slug, product]));
+export const categoriesById = new Map(categories.map((category) => [category.id, category]));
