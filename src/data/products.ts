@@ -55,7 +55,7 @@ export const products: Product[] = [
     weight: "45 г",
     description:
       "Хрустящие палочки в клубничной глазури с нежным молочным вкусом. Лёгкий сладкий перекус к чаю или матча.",
-    image: "/assets/pocky-strawberry.png",
+    image: "/assets/pocky-strawberry.jpg",
     accentColor: "#f72a8a",
     isHit: true,
     isNew: false,
@@ -69,7 +69,7 @@ export const products: Product[] = [
     weight: "41,5 г",
     description:
       "Зелёный шоколад с матча и хрустящей вафлей. Один из самых узнаваемых японских вкусов KitKat.",
-    image: "/assets/kitkat-matcha.png",
+    image: "/assets/kitkat-matcha.jpg",
     accentColor: "#20a85a",
     isHit: true,
     isNew: false,
@@ -83,7 +83,7 @@ export const products: Product[] = [
     weight: "1 шт.",
     description:
       "Мягкий рисовый десерт с клубничной начинкой. Нежная текстура и яркая ягодная кислинка.",
-    image: "/assets/mochi-strawberry.png",
+    image: "/assets/mochi-strawberry.jpg",
     accentColor: "#ff87bd",
     isHit: false,
     isNew: true,
@@ -97,7 +97,7 @@ export const products: Product[] = [
     weight: "50 г",
     description:
       "Фруктовый мармелад в яркой упаковке Hello Kitty. Удобный формат для маленького подарка.",
-    image: "/assets/hello-kitty-gummies.png",
+    image: "/assets/hello-kitty-gummies.jpg",
     accentColor: "#f72a8a",
     isHit: true,
     isNew: false,
@@ -105,13 +105,13 @@ export const products: Product[] = [
   {
     id: "ramune-strawberry",
     slug: "ramune-strawberry",
-    name: "Рамунэ Клубника",
+    name: "Рамунэ Original",
     category: "drinks",
     price: 149,
     weight: "200 мл",
     description:
-      "Газированный напиток Ramune с клубничным вкусом и классической японской стеклянной бутылкой.",
-    image: "/assets/ramune-strawberry.png",
+      "Классический газированный напиток Ramune в японской стеклянной бутылочке с шариком. Чистый освежающий вкус и узнаваемая упаковка.",
+    image: "/assets/ramune-original.jpg",
     accentColor: "#32b7ff",
     isHit: true,
     isNew: true,
@@ -125,7 +125,7 @@ export const products: Product[] = [
     weight: "50 г",
     description:
       "Мини-бисквиты с кремовой начинкой и весёлой упаковкой. Хорошо подходят в ланч-бокс.",
-    image: "/assets/panda-biscuits.png",
+    image: "/assets/panda-biscuits.jpg",
     accentColor: "#ff8b1a",
     isHit: true,
     isNew: false,
@@ -139,7 +139,7 @@ export const products: Product[] = [
     weight: "60 г",
     description:
       "Плиточные кубики с насыщенным вкусом зелёного чая и сливочной текстурой.",
-    image: "/assets/matcha-cubes.png",
+    image: "/assets/matcha-cubes.jpg",
     accentColor: "#b7f300",
     isHit: false,
     isNew: true,
@@ -153,7 +153,7 @@ export const products: Product[] = [
     weight: "200 мл",
     description:
       "Сладкая японская газировка с ароматом дыни. Подавайте хорошо охлаждённой.",
-    image: "/assets/melon-soda.png",
+    image: "/assets/melon-soda.jpg",
     accentColor: "#b7f300",
     isHit: false,
     isNew: true,
@@ -167,7 +167,7 @@ export const products: Product[] = [
     weight: "70 г",
     description:
       "Хрустящие солёные палочки со вкусом креветки. Контраст к сладкому заказу.",
-    image: "/assets/shrimp-chips.png",
+    image: "/assets/shrimp-chips.jpg",
     accentColor: "#ff8b1a",
     isHit: false,
     isNew: false,
@@ -181,7 +181,7 @@ export const products: Product[] = [
     weight: "75 г",
     description:
       "Мягкий бисквит в стиле дораяки с нежной сладкой начинкой. Хорош к кофе.",
-    image: "/assets/dorayaki-cookie.png",
+    image: "/assets/dorayaki-cookie.jpg",
     accentColor: "#d89743",
     isHit: false,
     isNew: false,
@@ -195,7 +195,7 @@ export const products: Product[] = [
     weight: "8 позиций",
     description:
       "Яркий набор японских сладостей для подарка: шоколад, моти, напиток и несколько снеков.",
-    image: "/assets/tokyo-gift.png",
+    image: "/assets/tokyo-gift.jpg",
     accentColor: "#f72a8a",
     isHit: true,
     isNew: true,
@@ -209,7 +209,7 @@ export const products: Product[] = [
     weight: "55 г",
     description:
       "Карамель с цитрусовым вкусом юдзу. Небольшая позиция, которую удобно добавить к заказу.",
-    image: "/assets/yuzu-candy.png",
+    image: "/assets/yuzu-candy.jpg",
     accentColor: "#ffb21f",
     isHit: false,
     isNew: true,

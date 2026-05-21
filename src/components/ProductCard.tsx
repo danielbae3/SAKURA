@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
           <img
             src={product.image}
             alt={product.name}
-            className="relative h-[82%] w-[82%] object-contain transition duration-300 group-hover:scale-105"
+            className="relative h-full w-full object-contain transition duration-300 group-hover:scale-105"
             decoding="async"
             loading="lazy"
           />
