@@ -13,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
           {badge}
         </span>
       )}
-      <Link to={`/product/${product.slug}`} className="block">
+      <Link to={`/product/${product.slug}`} className="product-card-main">
         <div className="relative grid aspect-[1.08] place-items-center overflow-hidden rounded-[24px] bg-[#faf7fb]">
           <span
             className="absolute h-28 w-28 rounded-full opacity-20 transition-transform duration-300 group-hover:scale-110"
@@ -27,7 +27,7 @@ export function ProductCard({ product }: { product: Product }) {
             loading="lazy"
           />
         </div>
-        <h3 className="mt-4 min-h-[42px] text-base font-black leading-tight text-[#17141f]">
+        <h3 className="product-card-title" title={product.name}>
           {product.name}
         </h3>
         <p className="mt-1 text-sm font-semibold text-[#7b7380]">{product.weight}</p>

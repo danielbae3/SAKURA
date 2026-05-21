@@ -224,7 +224,7 @@ export function Catalog() {
           </div>
 
           {filteredProducts.length > 0 ? (
-            <div className="product-grid">
+            <div className="product-grid catalog-product-grid">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
