@@ -1,3 +1,4 @@
+import { FunnelSimple, X } from "@phosphor-icons/react";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "../components/EmptyState";
@@ -8,6 +9,13 @@ import { formatPrice } from "../utils/format";
 
 type SortMode = "popular" | "priceAsc" | "priceDesc" | "name";
 type CatalogView = "all" | "new" | "hits" | "gifts";
+
+const sortOptions: Array<{ value: SortMode; label: string }> = [
+  { value: "popular", label: "Сначала популярные" },
+  { value: "priceAsc", label: "Сначала дешевле" },
+  { value: "priceDesc", label: "Сначала дороже" },
+  { value: "name", label: "По названию" },
+];
 
 const minCatalogPrice = Math.min(...products.map((product) => product.price));
 const maxCatalogPrice = Math.max(...products.map((product) => product.price));
@@ -57,6 +65,110 @@ const normalizePrice = (value: number) => {
   return Math.max(minCatalogPrice, Math.min(maxCatalogPrice, value));
 };
 
+type SortSelectProps = {
+  sort: SortMode;
+  onChange: (value: SortMode) => void;
+};
+
+function SortSelect({ sort, onChange }: SortSelectProps) {
+  return (
+    <select
+      className="catalog-sort-select"
+      value={sort}
+      onChange={(event) => onChange(event.target.value as SortMode)}
+    >
+      {sortOptions.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+type CatalogFiltersProps = {
+  view: CatalogView;
+  category: CategoryId | "all";
+  priceFrom: number;
+  priceTo: number;
+  onCategoryChange: (value: CategoryId | "all") => void;
+  onPriceFromChange: (value: number) => void;
+  onPriceToChange: (value: number) => void;
+};
+
+function CatalogFilters({
+  view,
+  category,
+  priceFrom,
+  priceTo,
+  onCategoryChange,
+  onPriceFromChange,
+  onPriceToChange,
+}: CatalogFiltersProps) {
+  return (
+    <>
+      <div>
+        <h2 className="filter-title">Категории</h2>
+        <div className="filter-options-grid mt-4">
+          <button
+            className={`filter-chip ${view === "all" && category === "all" ? "filter-chip-active" : ""}`}
+            type="button"
+            onClick={() => onCategoryChange("all")}
+          >
+            Все
+          </button>
+          {categories.map((item) => (
+            <button
+              key={item.id}
+              className={`filter-chip ${
+                (view === "gifts" && item.id === "gifts") ||
+                (view === "all" && category === item.id)
+                  ? "filter-chip-active"
+                  : ""
+              }`}
+              type="button"
+              onClick={() => onCategoryChange(item.id)}
+            >
+              {item.shortName}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="filter-title">Цена</h2>
+        <div className="price-filter-grid mt-4">
+          <label className="price-field">
+            <span>От</span>
+            <input
+              type="number"
+              min={minCatalogPrice}
+              max={maxCatalogPrice}
+              step="10"
+              value={priceFrom}
+              onChange={(event) => onPriceFromChange(normalizePrice(Number(event.target.value)))}
+            />
+          </label>
+          <label className="price-field">
+            <span>До</span>
+            <input
+              type="number"
+              min={minCatalogPrice}
+              max={maxCatalogPrice}
+              step="10"
+              value={priceTo}
+              onChange={(event) => onPriceToChange(normalizePrice(Number(event.target.value)))}
+            />
+          </label>
+        </div>
+        <p className="mt-3 text-xs font-bold leading-5 text-[#9a919e]">
+          Диапазон каталога: {formatPrice(minCatalogPrice)} - {formatPrice(maxCatalogPrice)}
+        </p>
+      </div>
+    </>
+  );
+}
+
 export function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = getCatalogView(searchParams);
@@ -69,12 +181,51 @@ export function Catalog() {
   const [sort, setSort] = useState<SortMode>(
     searchParams.get("sort") === "name" ? "name" : "popular",
   );
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
   useEffect(() => {
     const nextView = getCatalogView(searchParams);
     setView(nextView);
     setCategory(getCategory(searchParams, nextView));
   }, [searchParams]);
+
+  useEffect(() => {
+    if (!isFilterSheetOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsFilterSheetOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isFilterSheetOpen]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setIsFilterSheetOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener("change", closeOnDesktop);
+
+    return () => {
+      mediaQuery.removeEventListener("change", closeOnDesktop);
+    };
+  }, []);
 
   const filteredProducts = useMemo(() => {
     const list = products
@@ -141,85 +292,49 @@ export function Catalog() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[280px_1fr]">
-        <aside className="filter-panel min-w-0">
-          <div>
-            <h2 className="filter-title">Категории</h2>
-            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:grid lg:overflow-visible lg:pb-0">
-              <button
-                className={`filter-chip ${view === "all" && category === "all" ? "filter-chip-active" : ""}`}
-                type="button"
-                onClick={() => setCategoryFilter("all")}
-              >
-                Все
-              </button>
-              {categories.map((item) => (
-                <button
-                  key={item.id}
-                  className={`filter-chip ${
-                    (view === "gifts" && item.id === "gifts") ||
-                    (view === "all" && category === item.id)
-                      ? "filter-chip-active"
-                      : ""
-                  }`}
-                  type="button"
-                  onClick={() => setCategoryFilter(item.id)}
-                >
-                  {item.shortName}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <h2 className="filter-title">Цена</h2>
-            <div className="price-filter-grid mt-4">
-              <label className="price-field">
-                <span>От</span>
-                <input
-                  type="number"
-                  min={minCatalogPrice}
-                  max={maxCatalogPrice}
-                  step="10"
-                  value={priceFrom}
-                  onChange={(event) => setPriceFrom(normalizePrice(Number(event.target.value)))}
-                />
-              </label>
-              <label className="price-field">
-                <span>До</span>
-                <input
-                  type="number"
-                  min={minCatalogPrice}
-                  max={maxCatalogPrice}
-                  step="10"
-                  value={priceTo}
-                  onChange={(event) => setPriceTo(normalizePrice(Number(event.target.value)))}
-                />
-              </label>
-            </div>
-            <p className="mt-3 text-xs font-bold leading-5 text-[#9a919e]">
-              Диапазон каталога: {formatPrice(minCatalogPrice)} - {formatPrice(maxCatalogPrice)}
-            </p>
-          </div>
+      <div className="catalog-layout grid gap-6 lg:grid-cols-[280px_1fr]">
+        <aside className="filter-panel hidden min-w-0 lg:block">
+          <CatalogFilters
+            view={view}
+            category={category}
+            priceFrom={priceFrom}
+            priceTo={priceTo}
+            onCategoryChange={setCategoryFilter}
+            onPriceFromChange={setPriceFrom}
+            onPriceToChange={setPriceTo}
+          />
         </aside>
 
         <section className="min-w-0">
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="catalog-mobile-controls lg:hidden">
+            <div className="catalog-mobile-row">
+              <p className="text-sm font-black text-[#7b7380]">
+                Найдено: <span className="text-[#17141f]">{filteredProducts.length}</span>
+              </p>
+              <button
+                className="catalog-filter-button"
+                type="button"
+                aria-expanded={isFilterSheetOpen}
+                aria-controls="mobile-filter-sheet"
+                onClick={() => setIsFilterSheetOpen(true)}
+              >
+                <FunnelSimple size={19} weight="bold" />
+                Фильтры
+              </button>
+            </div>
+            <label className="catalog-mobile-sort">
+              <span>Сортировка</span>
+              <SortSelect sort={sort} onChange={setSort} />
+            </label>
+          </div>
+
+          <div className="mb-5 hidden flex-col gap-3 lg:flex lg:flex-row lg:items-center lg:justify-between">
             <p className="text-sm font-black text-[#7b7380]">
               Найдено: <span className="text-[#17141f]">{filteredProducts.length}</span>
             </p>
             <label className="flex items-center gap-3 text-sm font-black text-[#17141f]">
               Сортировка
-              <select
-                className="rounded-2xl border border-[#efe7ef] bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-[#f72a8a]"
-                value={sort}
-                onChange={(event) => setSort(event.target.value as SortMode)}
-              >
-                <option value="popular">Сначала популярные</option>
-                <option value="priceAsc">Сначала дешевле</option>
-                <option value="priceDesc">Сначала дороже</option>
-                <option value="name">По названию</option>
-              </select>
+              <SortSelect sort={sort} onChange={setSort} />
             </label>
           </div>
 
@@ -244,6 +359,56 @@ export function Catalog() {
           )}
         </section>
       </div>
+
+      {isFilterSheetOpen && (
+        <div className="mobile-filter-layer lg:hidden">
+          <button
+            className="mobile-filter-backdrop"
+            type="button"
+            aria-label="Закрыть фильтры"
+            onClick={() => setIsFilterSheetOpen(false)}
+          />
+          <section
+            id="mobile-filter-sheet"
+            className="mobile-filter-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mobile-filter-title"
+          >
+            <div className="mobile-filter-head">
+              <div>
+                <p className="eyebrow">Фильтры</p>
+                <h2 id="mobile-filter-title">Подобрать сладости</h2>
+              </div>
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="Закрыть фильтры"
+                onClick={() => setIsFilterSheetOpen(false)}
+              >
+                <X size={22} weight="bold" />
+              </button>
+            </div>
+            <CatalogFilters
+              view={view}
+              category={category}
+              priceFrom={priceFrom}
+              priceTo={priceTo}
+              onCategoryChange={setCategoryFilter}
+              onPriceFromChange={setPriceFrom}
+              onPriceToChange={setPriceTo}
+            />
+            <div className="mobile-filter-actions">
+              <button className="secondary-button" type="button" onClick={resetFilters}>
+                Сбросить
+              </button>
+              <button className="primary-button" type="button" onClick={() => setIsFilterSheetOpen(false)}>
+                Показать {filteredProducts.length}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
