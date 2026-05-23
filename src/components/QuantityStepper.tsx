@@ -8,7 +8,7 @@ export function QuantityStepper({
   onChange: (quantity: number) => void;
 }) {
   return (
-    <div className="grid w-[118px] grid-cols-3 items-center rounded-2xl border border-[#efe7ef] bg-white p-1">
+    <div className="quantity-stepper">
       <button
         className="quantity-stepper-button grid h-9 place-items-center rounded-xl text-[#17141f]"
         type="button"

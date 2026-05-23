@@ -24,40 +24,40 @@ export function Cart() {
 
   return (
     <main className="page-shell">
-      <div className="section-heading">
+      <div className="section-heading cart-heading">
         <h1>Корзина</h1>
         <Link to="/catalog" className="text-sm font-black text-[#f72a8a]">
           Добавить ещё
         </Link>
       </div>
-      <div className="mt-7 grid gap-6 lg:grid-cols-[1fr_360px]">
+      <div className="cart-layout mt-7 grid gap-6 lg:grid-cols-[1fr_360px]">
         <section className="space-y-4">
           {entries.map(({ item, product }) => (
             <article className="cart-row" key={product.id}>
-              <Link to={`/product/${product.slug}`} className="grid h-24 w-24 shrink-0 place-items-center rounded-[22px] bg-white sm:h-28 sm:w-28">
-                <img src={product.image} alt={product.name} className="h-20 w-20 object-contain sm:h-24 sm:w-24" />
+              <Link to={`/product/${product.slug}`} className="cart-row-image">
+                <img src={product.image} alt={product.name} />
               </Link>
-              <div className="min-w-0 flex-1">
-                <Link to={`/product/${product.slug}`} className="cart-product-link text-lg font-black leading-tight text-[#17141f]">
+              <div className="cart-row-content">
+                <Link to={`/product/${product.slug}`} className="cart-product-link cart-row-title">
                   {product.name}
                 </Link>
-                <p className="mt-1 text-sm font-semibold text-[#7b7380]">{product.weight}</p>
-                <div className="mt-4 flex flex-wrap items-center gap-3">
-                  <QuantityStepper
-                    quantity={item.quantity}
-                    onChange={(quantity) => updateQuantity(product.id, quantity)}
-                  />
-                  <button
-                    className="cart-remove-button inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#efe7ef] text-[#7b7380]"
-                    type="button"
-                    aria-label={`Удалить ${product.name}`}
-                    onClick={() => removeItem(product.id)}
-                  >
-                    <Trash size={19} weight="bold" />
-                  </button>
-                </div>
+                <p className="cart-row-weight">{product.weight}</p>
               </div>
-              <span className="text-xl font-black text-[#17141f]">
+              <div className="cart-row-actions">
+                <QuantityStepper
+                  quantity={item.quantity}
+                  onChange={(quantity) => updateQuantity(product.id, quantity)}
+                />
+                <button
+                  className="cart-remove-button"
+                  type="button"
+                  aria-label={`Удалить ${product.name}`}
+                  onClick={() => removeItem(product.id)}
+                >
+                  <Trash size={19} weight="bold" />
+                </button>
+              </div>
+              <span className="cart-row-price">
                 {formatPrice(product.price * item.quantity)}
               </span>
             </article>

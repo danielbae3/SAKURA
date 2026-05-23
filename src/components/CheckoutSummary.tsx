@@ -7,34 +7,34 @@ export function CheckoutSummary() {
   const total = subtotal + delivery;
 
   return (
-    <aside className="rounded-[28px] border border-[#efe7ef] bg-white p-5 shadow-[0_10px_28px_rgba(23,20,31,0.04)] lg:sticky lg:top-24">
+    <aside className="checkout-summary lg:sticky lg:top-24">
       <h2 className="text-xl font-black tracking-tight text-[#17141f]">Ваш заказ</h2>
       <div className="mt-5 space-y-4">
         {entries.map(({ item, product }) => (
-          <div key={product.id} className="flex items-center gap-3">
-            <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white">
-              <img src={product.image} alt={product.name} className="h-14 w-14 object-contain" />
+          <div key={product.id} className="checkout-summary-item">
+            <div className="checkout-summary-image">
+              <img src={product.image} alt={product.name} />
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-black text-[#17141f]">{product.name}</p>
-              <p className="mt-1 text-xs font-bold text-[#7b7380]">{item.quantity} шт.</p>
+            <div className="checkout-summary-content">
+              <p className="checkout-summary-name">{product.name}</p>
+              <p className="checkout-summary-quantity">{item.quantity} шт.</p>
             </div>
-            <span className="text-sm font-black text-[#17141f]">
+            <span className="checkout-summary-price">
               {formatPrice(product.price * item.quantity)}
             </span>
           </div>
         ))}
       </div>
       <div className="mt-6 space-y-3 border-t border-[#f1eaf1] pt-5 text-sm font-bold">
-        <div className="flex justify-between text-[#7b7380]">
+        <div className="checkout-summary-line text-[#7b7380]">
           <span>Товары</span>
           <span>{formatPrice(subtotal)}</span>
         </div>
-        <div className="flex justify-between text-[#7b7380]">
+        <div className="checkout-summary-line text-[#7b7380]">
           <span>Доставка</span>
           <span>{delivery ? formatPrice(delivery) : "Бесплатно"}</span>
         </div>
-        <div className="flex justify-between text-lg font-black text-[#17141f]">
+        <div className="checkout-summary-line text-lg font-black text-[#17141f]">
           <span>Итого</span>
           <span>{formatPrice(total)}</span>
         </div>
