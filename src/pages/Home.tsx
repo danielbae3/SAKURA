@@ -27,6 +27,7 @@ export function Home() {
   const [email, setEmail] = useState("");
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
   const hits = useMemo(() => products.filter((product) => product.isHit).slice(0, 6), []);
+  const isSubscriptionError = subscriptionMessage === "Введите корректный e-mail";
 
   const onSubscribe = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,16 +57,21 @@ export function Home() {
               <ArrowRight size={22} weight="bold" />
             </Link>
           </div>
-          <div className="relative min-h-[360px] lg:min-h-[560px]">
-            <div className="absolute bottom-10 left-4 h-24 w-72 rounded-t-full bg-[#b7f300]" />
-            <div className="absolute right-0 top-4 h-64 w-72 rounded-[42%_58%_48%_52%] bg-[#f72a8a] sm:h-80 sm:w-96" />
-            <img
-              src="/assets/hero-collage.png"
-              alt="Японские сладости Sakura"
-              className="relative z-10 h-full min-h-[360px] w-full object-contain"
-              decoding="async"
-              fetchPriority="high"
-            />
+          <div className="hero-visual">
+            <picture>
+              <source media="(max-width: 639px)" srcSet="/assets/hero-sakura-mobile.webp" />
+              <source media="(max-width: 1023px)" srcSet="/assets/hero-sakura-tablet.webp" />
+              <img
+                src="/assets/hero-sakura-desktop.webp"
+                alt="Японские сладости Sakura: Pocky, KitKat Matcha, Ramune, моти и подарочный набор"
+                className="hero-visual-image"
+                width="1280"
+                height="853"
+                sizes="(min-width: 1024px) 54vw, (min-width: 640px) 80vw, 100vw"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
         </div>
       </section>
@@ -160,26 +166,34 @@ export function Home() {
               Подпишитесь на новости и получайте скидки на новинки и хиты.
             </p>
           </div>
-          <div className="w-full max-w-xl">
+          <div className="subscribe-form-field w-full max-w-xl">
             <div className="flex flex-col overflow-hidden rounded-2xl bg-white sm:flex-row">
               <label className="sr-only" htmlFor="subscribe-email">
                 Ваш e-mail
               </label>
               <input
                 id="subscribe-email"
-                className="min-h-14 flex-1 px-5 text-sm font-bold text-[#17141f] outline-none"
+                className={`min-h-14 flex-1 px-5 text-sm font-bold text-[#17141f] outline-none ${
+                  isSubscriptionError ? "subscribe-input-error" : ""
+                }`}
                 placeholder="Ваш e-mail"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                aria-invalid={isSubscriptionError}
+                aria-describedby="subscribe-message"
               />
               <button className="newsletter-button" type="submit">
                 Подписаться
                 <EnvelopeSimple size={19} weight="bold" />
               </button>
             </div>
-            {subscriptionMessage && (
-              <p className="mt-3 text-sm font-bold text-white">{subscriptionMessage}</p>
-            )}
+            <p
+              id="subscribe-message"
+              className={`subscribe-message ${subscriptionMessage ? "subscribe-message-visible" : ""}`}
+              aria-live="polite"
+            >
+              {subscriptionMessage}
+            </p>
           </div>
         </form>
       </section>

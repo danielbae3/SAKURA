@@ -350,6 +350,24 @@ a {
   flex-shrink: 0;
 }
 
+.hero-visual {
+  display: grid;
+  min-height: 360px;
+  align-items: center;
+}
+
+.hero-visual picture {
+  display: block;
+  width: 100%;
+}
+
+.hero-visual-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .promo-banner {
   position: relative;
   min-height: 204px;
@@ -394,6 +412,39 @@ a {
   border-radius: 50%;
   background: #f72a8a;
   box-shadow: -52px 32px 0 #fff, -90px 10px 0 #fff;
+}
+
+.subscribe-form-field {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 28px;
+}
+
+.subscribe-input-error {
+  background: #fff7fb;
+  box-shadow: inset 0 0 0 2px #ff8b1a;
+}
+
+.subscribe-message {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 18px;
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 18px;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.subscribe-message-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .newsletter-button {
@@ -903,6 +954,10 @@ a {
     margin-top: 48px;
   }
 
+  .hero-visual {
+    min-height: 520px;
+  }
+
   .category-scroll {
     grid-auto-columns: 1fr;
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -966,6 +1021,18 @@ a {
 }
 
 @media (max-width: 560px) {
+  .hero-visual {
+    min-height: 260px;
+  }
+
+  .subscribe-form-field {
+    padding-bottom: 30px;
+  }
+
+  .subscribe-message {
+    text-align: center;
+  }
+
   .page-shell {
     width: min(calc(100% - 1.5rem), 1280px);
     padding-top: 20px;
