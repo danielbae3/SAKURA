@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sakura">
+  <rect width="64" height="64" rx="18" fill="#f72a8a"/>
+  <g fill="#fff" transform="translate(32 32)">
+    <ellipse rx="9" ry="15" transform="translate(0 -12) rotate(0)"/>
+    <ellipse rx="9" ry="15" transform="translate(11.4 -3.7) rotate(72)"/>
+    <ellipse rx="9" ry="15" transform="translate(7.1 9.7) rotate(144)"/>
+    <ellipse rx="9" ry="15" transform="translate(-7.1 9.7) rotate(216)"/>
+    <ellipse rx="9" ry="15" transform="translate(-11.4 -3.7) rotate(288)"/>
+    <circle r="5.5" fill="#f72a8a"/>
+  </g>
+</svg>

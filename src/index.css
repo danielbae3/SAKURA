@@ -239,27 +239,6 @@ a {
   font-size: clamp(1.45rem, 3vw, 2.05rem);
 }
 
-.round-link {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border: 1px solid #efe7ef;
-  border-radius: 999px;
-  background: white;
-  color: #17141f;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
-}
-
-.round-link:hover {
-  border-color: #f72a8a;
-  color: #f72a8a;
-  transform: translateY(-1px);
-}
-
 .category-scroll {
   display: grid;
   grid-auto-columns: minmax(172px, 1fr);
@@ -924,7 +903,6 @@ a {
   .icon-button:hover,
   .primary-button:hover,
   .product-card:hover,
-  .round-link:hover,
   .social-link:hover {
     transform: none;
   }

@@ -1,4 +1,3 @@
-import { ArrowRight } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import type { Category } from "../types";
 
@@ -19,9 +18,6 @@ export function CategoryCard({ category }: { category: Category }) {
         decoding="async"
         loading="lazy"
       />
-      <span className="absolute bottom-4 left-4 grid h-8 w-8 place-items-center rounded-full bg-white text-[#17141f] transition group-hover:translate-x-1">
-        <ArrowRight size={17} weight="bold" />
-      </span>
     </Link>
   );
 }
