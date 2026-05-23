@@ -38,7 +38,7 @@ export function Cart() {
                 <img src={product.image} alt={product.name} className="h-20 w-20 object-contain sm:h-24 sm:w-24" />
               </Link>
               <div className="min-w-0 flex-1">
-                <Link to={`/product/${product.slug}`} className="text-lg font-black leading-tight text-[#17141f] hover:text-[#f72a8a]">
+                <Link to={`/product/${product.slug}`} className="cart-product-link text-lg font-black leading-tight text-[#17141f]">
                   {product.name}
                 </Link>
                 <p className="mt-1 text-sm font-semibold text-[#7b7380]">{product.weight}</p>
@@ -48,7 +48,7 @@ export function Cart() {
                     onChange={(quantity) => updateQuantity(product.id, quantity)}
                   />
                   <button
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#efe7ef] text-[#7b7380] transition hover:border-[#f72a8a] hover:text-[#f72a8a]"
+                    className="cart-remove-button inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#efe7ef] text-[#7b7380]"
                     type="button"
                     aria-label={`Удалить ${product.name}`}
                     onClick={() => removeItem(product.id)}

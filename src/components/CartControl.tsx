@@ -27,7 +27,7 @@ export function CartControl({
       </button>
     ) : (
       <button
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#f72a8a] text-white shadow-[0_8px_18px_rgba(247,42,138,0.16)] transition hover:-translate-y-0.5 active:translate-y-0"
+        className="cart-add-button grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#f72a8a] text-white shadow-[0_8px_18px_rgba(247,42,138,0.16)]"
         type="button"
         aria-label={`Добавить ${productName} в корзину`}
         onClick={() => addItem(productId)}

@@ -7,7 +7,7 @@ export function ProductCard({ product }: { product: Product }) {
   const badge = product.isHit ? "Хит" : product.isNew ? "Новинка" : "";
 
   return (
-    <article className="product-card group">
+    <article className="product-card">
       {badge && (
         <span className="absolute right-3 top-3 z-10 rotate-[-9deg] rounded-full bg-[#c8f52a] px-3 py-1 text-[11px] font-black uppercase text-[#17141f]">
           {badge}
@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
           <img
             src={product.image}
             alt={product.name}
-            className="relative h-full w-full object-contain transition duration-300 group-hover:scale-105"
+            className="product-card-image relative h-full w-full object-contain transition duration-300"
             decoding="async"
             loading="lazy"
           />

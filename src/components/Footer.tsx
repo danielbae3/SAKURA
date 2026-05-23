@@ -77,7 +77,7 @@ function FooterColumn({
       <ul className="mt-4 space-y-2">
         {links.map((link) => (
           <li key={link.label}>
-            <Link to={link.to} className="text-sm font-semibold text-[#7b7380] hover:text-[#f72a8a]">
+            <Link to={link.to} className="footer-link text-sm font-semibold text-[#7b7380]">
               {link.label}
             </Link>
           </li>
